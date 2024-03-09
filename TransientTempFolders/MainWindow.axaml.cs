@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
@@ -8,7 +9,7 @@ namespace TransientTempFolders;
 
 public partial class MainWindow : Window
 {
-    private readonly string _path = @"/home/mike/temp/";
+    private readonly string _path = "/home/mike/temp/";
     
     public MainWindow()
     {
@@ -19,15 +20,8 @@ public partial class MainWindow : Window
     {
         var tmpFolderPath = string.Concat(_path, Guid.NewGuid());
         var fileStream = Directory.CreateDirectory(tmpFolderPath);
-        var processInfo = new ProcessStartInfo("dolphin", tmpFolderPath);
-        var process = new Process();
-        process.StartInfo = processInfo;
-        process.Start();
-        while (true)
-        {
-            if (!process.HasExited) continue;
-            fileStream.Delete();
-            break;
-        }
+        var data = new TempFolderData(fileStream, tmpFolderPath);
+        var thread = new Thread(data.OpenFolder);
+        thread.Start();
     }
 }

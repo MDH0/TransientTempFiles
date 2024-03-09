@@ -6,6 +6,8 @@
         x:Class="TransientTempFolders.MainWindow"
         Title="TransientTempFolders">
         <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
-                <Button Grid.Row="0" Grid.Column="0" Name="CreateTmpFolderBtn" Click="CreateTmpFolderBtn_OnClick"></Button>
+                <Button Grid.Row="0" Grid.Column="0" Name="CreateTmpFolderBtn" Click="CreateTmpFolderBtn_OnClick" HorizontalAlignment="Center">
+                        Create Folder
+                </Button>
         </Grid>
 </Window>
